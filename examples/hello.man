@@ -1,0 +1,5 @@
+# Hello World in Mantra
+sthana message = "Namaste, World!"
+prakash(message)
+prakash("Welcome to Mantra Programming Language!")
+prakash("संस्कृत प्रोग्रामिंग में स्वागत है!")

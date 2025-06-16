@@ -1,0 +1,35 @@
+prakash("=== Shakti (Power Expressions) Demo ===")
+
+# Web server creation
+prakash("Creating web server...")
+shakti "web_server" {
+    port: 8080,
+    routes: "api,static"
+}
+
+# Data visualization
+prakash("Creating data visualization...")
+shakti "data_viz" {
+    data: "10,20,30,40,50",
+    chart_type: "line",
+    title: "Sample Data Visualization"
+}
+
+# Database connection
+prakash("Setting up database...")
+shakti "database" {
+    type: "sqlite",
+    file: "app.db",
+    tables: "users,posts,comments"
+}
+
+# API endpoint creation
+prakash("Creating REST API...")
+shakti "rest_api" {
+    base_url: "/api/v1",
+    endpoints: "users,posts",
+    auth: "jwt"
+}
+
+prakash("All power expressions executed successfully!")
+prakash("This demonstrates how Mantra can accomplish complex tasks with minimal code.")

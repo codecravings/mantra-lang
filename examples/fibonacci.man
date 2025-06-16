@@ -1,0 +1,18 @@
+# Fibonacci Sequence in Mantra
+kriya fibonacci(n) {
+    yadi n <= 1 {
+        gati n
+    } athava {
+        gati fibonacci(n - 1) + fibonacci(n - 2)
+    }
+}
+
+prakash("Fibonacci Series:")
+prakash("fib(0) =", fibonacci(0))
+prakash("fib(1) =", fibonacci(1))
+prakash("fib(2) =", fibonacci(2))
+prakash("fib(3) =", fibonacci(3))
+prakash("fib(4) =", fibonacci(4))
+prakash("fib(5) =", fibonacci(5))
+prakash("fib(6) =", fibonacci(6))
+prakash("fib(7) =", fibonacci(7))

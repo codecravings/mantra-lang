@@ -1,0 +1,4 @@
+# Mantra Programming Language Dependencies
+pytest>=6.0.0
+setuptools>=50.0.0
+wheel>=0.36.0

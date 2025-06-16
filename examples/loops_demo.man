@@ -1,0 +1,6 @@
+prakash("=== Counting Loop ===")
+sthana count = 1
+punar count <= 5 {
+    prakash("Count:", count)
+    count = count + 1
+}

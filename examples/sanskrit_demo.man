@@ -1,0 +1,25 @@
+sthana naam = "अर्जुन"
+sthana ayu = 25
+sthana sthan = "भारत"
+
+# Sanskrit function
+kriya namaskar(vyakti) {
+    prakash("नमस्ते,", vyakti + "!")
+    prakash("आपकी आयु:", ayu, "वर्ष")
+    gati "नमस्कार पूर्ण"
+}
+
+prakash("=== संस्कृत प्रोग्रामिंग प्रदर्शन ===")
+sthana result = namaskar(naam)
+
+# Data processing with Sanskrit functions
+sthana paath = "यह संस्कृत में लिखा गया है"
+prakash("पाठ:", paath)
+prakash("पाठ की लंबाई:", lambh(paath))
+prakash("पाठ का प्रकार:", prakar(paath))
+
+# Mathematical operations
+sthana a = 108
+sthana b = 27
+prakash("गुणाकार:", a * b)
+prakash("योगफल:", a + b)

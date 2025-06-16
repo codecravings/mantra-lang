@@ -1,0 +1,14 @@
+# Quick Test
+prakash("Quick Mantra test starting...")
+
+sthana x = 10
+sthana y = 20
+prakash("Basic math:", x + y)
+
+kriya double(n) {
+    gati n * 2
+}
+
+prakash("Function test:", double(15))
+prakash("Sanskrit test: प्रकाश works!")
+prakash("Test completed!")

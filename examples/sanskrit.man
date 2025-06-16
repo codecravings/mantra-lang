@@ -1,0 +1,29 @@
+# Pure Sanskrit Demo
+prakash("=== संस्कृत प्रोग्रामिंग प्रदर्शन ===")
+
+# Sanskrit variables
+sthana naam = "राम"
+sthana ayu = 30
+
+# Sanskrit function
+kriya namaskar(vyakti) {
+    prakash("नमस्ते", vyakti + "!")
+    prakash("आपकी आयु", ayu, "वर्ष है")
+    gati "नमस्कार पूर्ण"
+}
+
+# Call function
+namaskar(naam)
+
+# Sanskrit calculations
+sthana ek = 1
+sthana dvi = 2
+sthana tri = 3
+
+prakash("एक + द्वि =", ek + dvi)
+prakash("त्रि की वर्ग =", tri * tri)
+
+# Sanskrit text
+sthana sanskrit_text = "संस्कृत भाषा सुन्दर है"
+prakash("पाठ:", sanskrit_text)
+prakash("पाठ की लंबाई:", lambh(sanskrit_text))

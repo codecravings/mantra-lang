@@ -1,0 +1,17 @@
+# Loops Demo in Mantra
+prakash("=== Loop Demo ===")
+
+# Simple counting loop
+sthana count = 1
+punar count <= 5 {
+    prakash("Count:", count)
+    count = count + 1
+}
+
+# Multiplication table
+prakash("Multiplication table for 3:")
+sthana i = 1
+punar i <= 5 {
+    prakash("3 x", i, "=", 3 * i)
+    i = i + 1
+}

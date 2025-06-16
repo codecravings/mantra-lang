@@ -1,0 +1,3 @@
+prakash("Mantra is working!")
+sthana x = 5
+prakash("5 + 5 =", x + 5)

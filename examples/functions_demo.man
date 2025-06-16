@@ -1,0 +1,27 @@
+# Simple functions
+kriya greet(name) {
+    prakash("Namaste,", name + "!")
+    gati "greeting_complete"
+}
+
+kriya square(x) {
+    gati x * x
+}
+
+kriya factorial(n) {
+    yadi n <= 1 {
+        gati 1
+    } athava {
+        gati n * factorial(n - 1)
+    }
+}
+
+# Test functions
+prakash("=== Function Demo ===")
+greet("Maya")
+
+sthana num = 5
+prakash("Square of", num, "=", square(num))
+
+sthana fact_num = 5
+prakash("Factorial of", fact_num, "=", factorial(fact_num))

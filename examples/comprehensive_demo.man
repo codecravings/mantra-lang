@@ -1,0 +1,72 @@
+prakash("=== Comprehensive Mantra Language Demo ===")
+
+# Variables and basic operations
+sthana name = "Mantra"
+sthana version = 1.0
+sthana is_active = saty
+
+prakash("Language:", name)
+prakash("Version:", version)
+prakash("Active:", is_active)
+
+# Functions
+kriya welcome_user(user_name, age) {
+    prakash("Welcome", user_name + "!")
+    yadi age >= 18 {
+        prakash("You have full access.")
+    } athava {
+        prakash("Parental guidance required.")
+    }
+    gati "user_welcomed"
+}
+
+# Function calls
+welcome_user("Om", 25)
+welcome_user("Pedo", 16)
+
+# Loops and calculations
+prakash("\n=== Multiplication Table ===")
+sthana num = 5
+sthana i = 1
+punar i <= 5 {
+    prakash(num, "x", i, "=", num * i)
+    i = i + 1
+}
+
+# String operations
+sthana text = "Sanskrit Programming"
+prakash("\nText:", text)
+prakash("Length:", lambh(text))
+prakash("Type:", prakar(text))
+
+# GUI Components
+prakash("\n=== Creating GUI ===")
+yantra window {
+    title: "Mantra Demo App",
+    width: 500,
+    height: 400
+}
+
+yantra label {
+    text: "Enter your details:",
+    color: "blue"
+}
+
+yantra entry {
+    placeholder: "Your name",
+    width: 200
+}
+
+yantra button {
+    text: "Submit",
+    action: "process_form"
+}
+
+# Power expression
+shakti "gui_app" {
+    title: "Complete Mantra Demo",
+    theme: "modern"
+}
+
+prakash("Demo completed successfully!")
+prakash("Mantra combines simplicity with power.")

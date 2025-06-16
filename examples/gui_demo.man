@@ -1,0 +1,30 @@
+yantra label {
+    text: "Welcome to Mantra GUI!",
+    font: "Arial 16 bold"
+}
+
+yantra entry {
+    placeholder: "Enter your name",
+    width: 200
+}
+
+yantra button {
+    text: "Say Hello",
+    width: 100,
+    height: 30
+}
+
+yantra button {
+    text: "Clear",
+    width: 100,
+    height: 30
+}
+
+# Create the application window using shakti
+shakti "gui_app" {
+    title: "Mantra GUI Demo",
+    width: 400,
+    height: 300
+}
+
+prakash("GUI application created! Check the window.")

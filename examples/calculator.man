@@ -1,0 +1,30 @@
+# Simple Calculator in Mantra
+kriya add(a, b) {
+    gati a + b
+}
+
+kriya subtract(a, b) {
+    gati a - b
+}
+
+kriya multiply(a, b) {
+    gati a * b
+}
+
+kriya divide(a, b) {
+    yadi b == 0 {
+        prakash("Error: Division by zero!")
+        gati 0
+    } athava {
+        gati a / b
+    }
+}
+
+# Test the calculator functions
+prakash("=== Mantra Calculator ===")
+prakash("5 + 3 =", add(5, 3))
+prakash("10 - 4 =", subtract(10, 4))
+prakash("6 * 7 =", multiply(6, 7))
+prakash("15 / 3 =", divide(15, 3))
+prakash("10 / 0 =", divide(10, 0))
+prakash("Calculator demo complete!")
