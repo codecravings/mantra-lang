@@ -1,0 +1,20 @@
+prakash("🌐 Shakti Web Server Demo...")
+
+# Create a simple web server
+shakti web_server {
+    port: 8080,
+    routes: ["home", "about", "api"],
+    static_files: saty
+}
+
+prakash("Web server running at http://localhost:8080 🚀")
+
+# Create API endpoint
+seva user_api {
+    type: "api",
+    endpoint: "/api/users",
+    method: "GET",
+    response_format: "json"
+}
+
+prakash("API endpoint created! 📡")

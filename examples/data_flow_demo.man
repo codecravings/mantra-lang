@@ -1,0 +1,25 @@
+prakash("📊 Raga Data Flow Demo...")
+
+# Create some sample data
+sthana numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# Function composition with Sutra
+kriya double(x) { gati x * 2 }
+kriya add_five(x) { gati x + 5 }
+kriya to_string(x) { gati shabd(x) }
+
+# Create function composition chain
+sutra process_number >> double >> add_five >> to_string
+
+# Data flow processing
+raga numbers ~> double ~> add_five ~> to_string
+
+prakash("Data processed through Raga flow! ✨")
+
+# Circular data structure
+mandal colors = ["red", "green", "blue", "yellow"]
+
+prakash("Mandal created:", colors)
+prakash("Next color:", colors.next())
+prakash("Next color:", colors.next())
+prakash("Previous color:", colors.previous())

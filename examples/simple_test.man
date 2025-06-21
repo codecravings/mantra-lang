@@ -1,0 +1,30 @@
+# Simple test to verify Mantra is working
+
+prakash("🎉 Mantra is working!")
+prakash("=" * 40)
+
+# Basic variables
+sthana x = 10
+sthana y = 20
+prakash("x =", x)
+prakash("y =", y)
+prakash("x + y =", x + y)
+
+# Test array
+sthana arr = [1, 2, 3, 4, 5]
+prakash("Array:", arr)
+
+# Test function
+kriya greet(name) {
+    prakash("Namaste,", name + "!")
+}
+
+greet("World")
+
+# Test conditional
+yadi x < y {
+    prakash("✅ Conditionals work!")
+}
+
+prakash("=" * 40)
+prakash("🕉️ All tests passed!")

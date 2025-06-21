@@ -1,0 +1,60 @@
+# Test all basic features of Mantra
+
+prakash("=== Mantra Feature Test ===")
+
+# 1. Variables
+prakash("\n1. Variables:")
+sthana x = 10
+sthana y = 20
+prakash("x =", x)
+prakash("y =", y)
+
+# 2. Math
+prakash("\n2. Math Operations:")
+prakash("x + y =", x + y)
+prakash("x * y =", x * y)
+
+# 3. Strings
+prakash("\n3. Strings:")
+sthana name = "Mantra"
+prakash("Hello from", name)
+
+# 4. Functions
+prakash("\n4. Functions:")
+kriya add(a, b) {
+    gati a + b
+}
+prakash("add(5, 3) =", add(5, 3))
+
+# 5. Conditionals
+prakash("\n5. Conditionals:")
+yadi x < y {
+    prakash("x is less than y ✓")
+} athava {
+    prakash("x is not less than y")
+}
+
+# 6. Loops
+prakash("\n6. Loops:")
+sthana i = 1
+punar i <= 3 {
+    prakash("Loop iteration:", i)
+    i = i + 1
+}
+
+# 7. Arrays (if fixed)
+prakash("\n7. Arrays:")
+# Uncomment after fixing:
+# sthana arr = [1, 2, 3, 4, 5]
+# prakash("Array:", arr)
+
+# 8. Booleans and null
+prakash("\n8. Special values:")
+sthana is_true = saty
+sthana is_false = asaty
+sthana nothing = shunya
+prakash("True:", is_true)
+prakash("False:", is_false)
+prakash("Null:", nothing)
+
+prakash("\n=== All tests complete! ===")

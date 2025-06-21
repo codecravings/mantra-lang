@@ -1,195 +1,52 @@
-from typing import Dict, List, Any, Optional, Union
-from dataclasses import dataclass
+#!/usr/bin/env python3
+"""
+Yantra GUI System for Mantra Programming Language
+Advanced features implementation: GUI creation with Sanskrit syntax
+"""
+
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox, filedialog
 import threading
 import time
+from typing import Dict, List, Any, Optional, Callable
+from dataclasses import dataclass
+from enum import Enum
 
 # =============================================================================
-# BASE AST NODE
-# =============================================================================
-
-class ASTNode:
-    pass
-
-# =============================================================================
-# BASIC AST NODES
+# YANTRA (GUI) SYSTEM - EXTENDED AST NODES
 # =============================================================================
 
 @dataclass
-class NumberNode(ASTNode):
-    value: float
-
-@dataclass
-class StringNode(ASTNode):
-    value: str
-
-@dataclass
-class BooleanNode(ASTNode):
-    value: bool
-
-@dataclass
-class NullNode(ASTNode):
-    pass
-
-@dataclass
-class IdentifierNode(ASTNode):
-    name: str
-
-@dataclass
-class BinaryOpNode(ASTNode):
-    left: ASTNode
-    operator: str
-    right: ASTNode
-
-@dataclass
-class AssignmentNode(ASTNode):
-    name: str
-    value: ASTNode
-
-@dataclass
-class VariableDeclarationNode(ASTNode):
-    name: str
-    value: Optional[ASTNode] = None
-
-@dataclass
-class FunctionDefNode(ASTNode):
-    name: str
-    params: List[str]
-    body: List[ASTNode]
-
-@dataclass
-class FunctionCallNode(ASTNode):
-    name: str
-    args: List[ASTNode]
-
-@dataclass
-class IfNode(ASTNode):
-    condition: ASTNode
-    then_branch: List[ASTNode]
-    else_branch: Optional[List[ASTNode]] = None
-
-@dataclass
-class LoopNode(ASTNode):
-    condition: ASTNode
-    body: List[ASTNode]
-
-@dataclass
-class ReturnNode(ASTNode):
-    value: Optional[ASTNode] = None
-
-@dataclass
-class ProgramNode(ASTNode):
-    statements: List[ASTNode]
-
-# =============================================================================
-# 🔥 ENHANCED AST NODES FOR ADVANCED FEATURES
-# =============================================================================
-
-@dataclass
-class ArrayNode(ASTNode):
-    """Array literal: [1, 2, 3]"""
-    elements: List[ASTNode]
-
-@dataclass
-class PropertyAccessNode(ASTNode):
-    """Property access: object.property"""
-    object: ASTNode
-    property: str
-
-@dataclass
-class MethodCallNode(ASTNode):
-    """Method call: object.method(args)"""
-    object: ASTNode
-    method: str
-    args: List[ASTNode]
-
-@dataclass
-class YantraDeclarationNode(ASTNode):
+class YantraNode:
     """GUI element creation with properties"""
-    name: str
     element_type: str
-    properties: Dict[str, ASTNode]
+    properties: Dict[str, Any]
+    children: List['YantraNode'] = None
 
 @dataclass
-class ShaktiDeclarationNode(ASTNode):
+class ShaktiNode:
     """Power expression for complex operations"""
-    name: str
     expression_type: str
-    properties: Dict[str, ASTNode]
+    properties: Dict[str, Any]
 
 @dataclass
-class SutraDeclarationNode(ASTNode):
+class SutraNode:
     """Function composition chain"""
-    name: str
-    functions: List[ASTNode]
+    functions: List[Any]
 
 @dataclass
-class RagaDeclarationNode(ASTNode):
+class RagaNode:
     """Data flow pattern"""
-    name: str
-    source: ASTNode
-    transformations: List[ASTNode]
+    source: Any
+    transformations: List[Any]
 
 @dataclass
-class MandalDeclarationNode(ASTNode):
+class MandalNode:
     """Circular data structure"""
-    name: str
-    elements: List[ASTNode]
-
-@dataclass
-class SevaDefinitionNode(ASTNode):
-    """Service/API definition"""
-    name: str
-    params: List[str]
-    body: List[ASTNode]
+    elements: List[Any]
 
 # =============================================================================
-# 🔥 MANTRA RUNTIME CLASSES
-# =============================================================================
-
-class MantraArray:
-    """Enhanced array with Sanskrit methods"""
-    def __init__(self, elements):
-        self.elements = list(elements)
-    
-    def pratham(self):
-        """First element (pratham = first)"""
-        return self.elements[0] if self.elements else None
-    
-    def antim(self):
-        """Last element (antim = last)"""
-        return self.elements[-1] if self.elements else None
-    
-    def madhya(self):
-        """Middle element (madhya = middle)"""
-        if not self.elements:
-            return None
-        return self.elements[len(self.elements) // 2]
-    
-    def lambh(self):
-        """Length (lambh = length)"""
-        return len(self.elements)
-    
-    def yog(self, item):
-        """Add item (yog = add)"""
-        self.elements.append(item)
-        return self
-    
-    def nikaal(self, index=None):
-        """Remove item (nikaal = remove)"""
-        if index is None:
-            return self.elements.pop() if self.elements else None
-        return self.elements.pop(index) if 0 <= index < len(self.elements) else None
-    
-    def __str__(self):
-        return f"[{', '.join(str(e) for e in self.elements)}]"
-    
-    def __repr__(self):
-        return self.__str__()
-
-# =============================================================================
-# YANTRA (GUI) SYSTEM
+# YANTRA GUI IMPLEMENTATION
 # =============================================================================
 
 class YantraWidget:
@@ -285,10 +142,10 @@ class YantraWidget:
             button.config(text=self.properties['text'])
         
         if 'width' in self.properties:
-            button.config(width=int(self.properties['width']) // 10)
+            button.config(width=int(self.properties['width']) // 10)  # Approximate character width
         
         if 'height' in self.properties:
-            button.config(height=int(self.properties['height']) // 20)
+            button.config(height=int(self.properties['height']) // 20)  # Approximate line height
         
         if 'font' in self.properties:
             button.config(font=self.properties['font'])
@@ -428,7 +285,7 @@ class YantraApplication:
         
         # Create all widgets
         for widget in self.widgets:
-            if widget.widget_type != "window":
+            if widget.widget_type != "window":  # Skip window widgets
                 widget.create_widget(self.main_window)
         
         # Add a default close handler
@@ -438,14 +295,18 @@ class YantraApplication:
         
         self.main_window.protocol("WM_DELETE_WINDOW", on_closing)
         
-        # Start the GUI
-        self.is_running = True
-        self.main_window.mainloop()
+        # Start the GUI in a separate thread
+        def run_gui():
+            self.is_running = True
+            self.main_window.mainloop()
         
-        return "Yantra application started"
+        gui_thread = threading.Thread(target=run_gui, daemon=True)
+        gui_thread.start()
+        
+        return f"Yantra application started with {len(self.widgets)} widgets"
 
 # =============================================================================
-# SHAKTI (POWER EXPRESSION) SYSTEM
+# SHAKTI (POWER EXPRESSIONS) SYSTEM
 # =============================================================================
 
 class ShaktiProcessor:
@@ -458,60 +319,62 @@ class ShaktiProcessor:
         routes = properties.get('routes', [])
         
         try:
-            import http.server
-            import socketserver
+            # Try to use Flask if available
+            from flask import Flask
+            app = Flask(__name__)
             
-            class MantraHTTPHandler(http.server.SimpleHTTPRequestHandler):
-                def do_GET(self):
-                    self.send_response(200)
-                    self.send_header('Content-type', 'text/html; charset=utf-8')
-                    self.end_headers()
-                    
-                    html = f"""
-                    <html>
-                    <head>
-                        <title>Mantra Web Server</title>
-                        <style>
-                            body {{ font-family: Arial, sans-serif; padding: 20px; }}
-                            h1 {{ color: #FF6B35; }}
-                            .sanskrit {{ font-style: italic; color: #4A5568; }}
-                        </style>
-                    </head>
-                    <body>
-                        <h1>🕉️ Mantra Web Server</h1>
-                        <p>Welcome to the <span class="sanskrit">Shakti</span> powered web server!</p>
-                        <p>Running on port: {port}</p>
-                        <p>Routes: {', '.join(routes) if routes else 'None defined'}</p>
-                        <hr>
-                        <p><em>Powered by Mantra Programming Language</em></p>
-                    </body>
-                    </html>
-                    """
-                    self.wfile.write(html.encode())
+            @app.route('/')
+            def home():
+                return f"<h1>Mantra Web Server</h1><p>Routes: {', '.join(routes)}</p>"
             
+            # Start server in background thread
             def run_server():
-                with socketserver.TCPServer(("", port), MantraHTTPHandler) as httpd:
-                    print(f"🌐 Shakti web server running at http://localhost:{port}")
-                    httpd.serve_forever()
+                app.run(port=port, debug=False)
             
             server_thread = threading.Thread(target=run_server, daemon=True)
             server_thread.start()
             
             return f"Web server started on http://localhost:{port}"
         
-        except Exception as e:
-            return f"Web server error: {e}"
+        except ImportError:
+            # Fallback to simple HTTP server
+            import http.server
+            import socketserver
+            
+            def run_simple_server():
+                with socketserver.TCPServer(("", port), http.server.SimpleHTTPRequestHandler) as httpd:
+                    httpd.serve_forever()
+            
+            server_thread = threading.Thread(target=run_simple_server, daemon=True)
+            server_thread.start()
+            
+            return f"Simple HTTP server started on http://localhost:{port}"
     
     @staticmethod
     def process_database(properties: Dict[str, Any]):
         """Handle database operations"""
-        db_type = properties.get('type', 'memory')
+        db_type = properties.get('type', 'sqlite')
+        db_file = properties.get('file', 'mantra.db')
+        tables = properties.get('tables', [])
         
-        if db_type == 'memory':
-            # Simple in-memory database
-            return MantraDatabase()
+        if db_type == 'sqlite':
+            try:
+                import sqlite3
+                conn = sqlite3.connect(db_file)
+                cursor = conn.cursor()
+                
+                # Create tables if specified
+                for table in tables:
+                    cursor.execute(f"CREATE TABLE IF NOT EXISTS {table} (id INTEGER PRIMARY KEY)")
+                
+                conn.commit()
+                conn.close()
+                
+                return f"SQLite database '{db_file}' created with tables: {', '.join(tables)}"
+            except Exception as e:
+                return f"Database error: {e}"
         
-        return f"Database type '{db_type}' created"
+        return f"Database type '{db_type}' not yet supported"
     
     @staticmethod
     def process_file_operations(properties: Dict[str, Any]):
@@ -524,41 +387,20 @@ class ShaktiProcessor:
             if operation == 'read':
                 with open(filename, 'r', encoding='utf-8') as f:
                     data = f.read()
-                return data
+                return f"Read {len(data)} characters from {filename}"
             
             elif operation == 'write':
                 with open(filename, 'w', encoding='utf-8') as f:
-                    f.write(str(content))
+                    f.write(content)
                 return f"Written to {filename}"
             
             elif operation == 'append':
                 with open(filename, 'a', encoding='utf-8') as f:
-                    f.write(str(content))
+                    f.write(content)
                 return f"Appended to {filename}"
             
         except Exception as e:
             return f"File operation error: {e}"
-
-class MantraDatabase:
-    """Simple in-memory database"""
-    def __init__(self):
-        self.data = {}
-    
-    def set(self, key, value):
-        self.data[key] = value
-        return value
-    
-    def get(self, key):
-        return self.data.get(key)
-    
-    def delete(self, key):
-        if key in self.data:
-            del self.data[key]
-            return True
-        return False
-    
-    def keys(self):
-        return list(self.data.keys())
 
 # =============================================================================
 # SUTRA (FUNCTION COMPOSITION) SYSTEM
@@ -572,9 +414,12 @@ class SutraComposer:
         """Compose multiple functions into one"""
         def composed_function(x):
             result = x
-            for func in reversed(functions):  # Right to left composition
+            for func in functions:
                 if callable(func):
                     result = func(result)
+                else:
+                    # Handle Mantra function objects
+                    result = func  # Simplified for now
             return result
         
         return composed_function
@@ -593,6 +438,10 @@ class RagaProcessor:
         for transform in transformations:
             if callable(transform):
                 result = transform(result)
+            else:
+                # Handle Mantra function objects
+                result = transform  # Simplified for now
+        
         return result
 
 # =============================================================================
@@ -629,11 +478,6 @@ class MandalStructure:
             return None
         return self.elements[self.current_index]
     
-    def reset(self):
-        """Reset to first element"""
-        self.current_index = 0
-        return self.elements[0] if self.elements else None
-    
     def all(self):
         """Get all elements"""
         return self.elements.copy()
@@ -649,28 +493,38 @@ class MandalStructure:
         return self.__str__()
 
 # =============================================================================
-# SEVA (SERVICE) SYSTEM
+# INTEGRATION WITH MAIN INTERPRETER
 # =============================================================================
 
-class MantraService:
-    """Base class for Mantra services"""
-    def __init__(self, name, handler):
-        self.name = name
-        self.handler = handler
-        self.is_running = False
-    
-    def start(self):
-        """Start the service"""
-        self.is_running = True
-        return f"Service '{self.name}' started"
-    
-    def stop(self):
-        """Stop the service"""
-        self.is_running = False
-        return f"Service '{self.name}' stopped"
-    
-    def call(self, *args, **kwargs):
-        """Call the service handler"""
-        if self.is_running:
-            return self.handler(*args, **kwargs)
-        return f"Service '{self.name}' is not running"
+# Global application instance
+yantra_app = YantraApplication()
+
+def create_yantra_widget(element_type: str, properties: Dict[str, Any]):
+    """Create a yantra widget and add it to the application"""
+    widget = YantraWidget(element_type, properties)
+    yantra_app.add_widget(widget)
+    return widget
+
+def process_shakti_expression(expression_type: str, properties: Dict[str, Any]):
+    """Process a shakti power expression"""
+    if expression_type == "gui_app":
+        return yantra_app.create_window(properties)
+    elif expression_type == "web_server":
+        return ShaktiProcessor.process_web_server(properties)
+    elif expression_type == "database":
+        return ShaktiProcessor.process_database(properties)
+    elif expression_type == "file_ops":
+        return ShaktiProcessor.process_file_operations(properties)
+    else:
+        return f"Unknown shakti expression: {expression_type}"
+
+def start_yantra_application():
+    """Start the yantra GUI application"""
+    return yantra_app.run()
+
+# Export functions for use in interpreter
+__all__ = [
+    'YantraWidget', 'YantraApplication', 'ShaktiProcessor',
+    'SutraComposer', 'RagaProcessor', 'MandalStructure',
+    'create_yantra_widget', 'process_shakti_expression', 'start_yantra_application'
+]

@@ -20,6 +20,14 @@ class TokenType(Enum):
     ASATY = "asaty"
     SHUNYA = "shunya"
     
+    # 🔥 NEW: Advanced Sanskrit keywords
+    YANTRA = "yantra"      # GUI elements
+    SHAKTI = "shakti"      # Power expressions  
+    SUTRA = "sutra"        # Function composition
+    RAGA = "raga"          # Data flow
+    MANDAL = "mandal"      # Circular data
+    SEVA = "seva"          # Service/API
+    
     # Operators
     PLUS = "+"
     MINUS = "-"
@@ -32,12 +40,15 @@ class TokenType(Enum):
     GREATER_THAN = ">"
     LESS_EQUAL = "<="
     GREATER_EQUAL = ">="
+    DOT = "."              # For property access
     
     # Delimiters
     LPAREN = "("
     RPAREN = ")"
     LBRACE = "{"
     RBRACE = "}"
+    LBRACKET = "["         # For arrays
+    RBRACKET = "]"
     COMMA = ","
     
     # Special
@@ -66,12 +77,24 @@ class SimpleLexer:
             'saty': TokenType.SATY,
             'asaty': TokenType.ASATY,
             'shunya': TokenType.SHUNYA,
+            # 🔥 NEW: Advanced keywords
+            'yantra': TokenType.YANTRA,
+            'shakti': TokenType.SHAKTI,
+            'sutra': TokenType.SUTRA,
+            'raga': TokenType.RAGA,
+            'mandal': TokenType.MANDAL,
+            'seva': TokenType.SEVA,
         }
     
     def current_char(self):
         if self.pos >= len(self.text):
             return None
         return self.text[self.pos]
+    
+    def peek_char(self):
+        if self.pos + 1 >= len(self.text):
+            return None
+        return self.text[self.pos + 1]
     
     def advance(self):
         if self.pos < len(self.text) and self.text[self.pos] == '\n':
@@ -99,15 +122,24 @@ class SimpleLexer:
         self.advance()
         string_val = ''
         while self.current_char() and self.current_char() != quote:
-            string_val += self.current_char()
-            self.advance()
+            if self.current_char() == '\\' and self.peek_char() == quote:
+                # Handle escaped quotes
+                self.advance()
+                string_val += quote
+                self.advance()
+            else:
+                string_val += self.current_char()
+                self.advance()
         if self.current_char() == quote:
             self.advance()
         return string_val
     
     def read_identifier(self):
         identifier = ''
-        while self.current_char() and (self.current_char().isalnum() or self.current_char() == '_'):
+        # Allow Unicode characters for Sanskrit
+        while self.current_char() and (self.current_char().isalnum() or 
+                                     self.current_char() == '_' or 
+                                     ord(self.current_char()) > 127):
             identifier += self.current_char()
             self.advance()
         return identifier
@@ -143,25 +175,25 @@ class SimpleLexer:
                 continue
             
             # Two-character operators
-            if self.current_char() == '=' and self.pos + 1 < len(self.text) and self.text[self.pos + 1] == '=':
+            if self.current_char() == '=' and self.peek_char() == '=':
                 tokens.append(Token(TokenType.EQUALS, '==', self.line))
                 self.advance()
                 self.advance()
                 continue
             
-            if self.current_char() == '!' and self.pos + 1 < len(self.text) and self.text[self.pos + 1] == '=':
+            if self.current_char() == '!' and self.peek_char() == '=':
                 tokens.append(Token(TokenType.NOT_EQUALS, '!=', self.line))
                 self.advance()
                 self.advance()
                 continue
             
-            if self.current_char() == '<' and self.pos + 1 < len(self.text) and self.text[self.pos + 1] == '=':
+            if self.current_char() == '<' and self.peek_char() == '=':
                 tokens.append(Token(TokenType.LESS_EQUAL, '<=', self.line))
                 self.advance()
                 self.advance()
                 continue
             
-            if self.current_char() == '>' and self.pos + 1 < len(self.text) and self.text[self.pos + 1] == '=':
+            if self.current_char() == '>' and self.peek_char() == '=':
                 tokens.append(Token(TokenType.GREATER_EQUAL, '>=', self.line))
                 self.advance()
                 self.advance()
@@ -172,7 +204,8 @@ class SimpleLexer:
                 '+': TokenType.PLUS, '-': TokenType.MINUS, '*': TokenType.MULTIPLY,
                 '/': TokenType.DIVIDE, '=': TokenType.ASSIGN, '<': TokenType.LESS_THAN,
                 '>': TokenType.GREATER_THAN, '(': TokenType.LPAREN, ')': TokenType.RPAREN,
-                '{': TokenType.LBRACE, '}': TokenType.RBRACE, ',': TokenType.COMMA
+                '{': TokenType.LBRACE, '}': TokenType.RBRACE, ',': TokenType.COMMA,
+                '[': TokenType.LBRACKET, ']': TokenType.RBRACKET, '.': TokenType.DOT
             }
             
             if self.current_char() in single_chars:
@@ -180,14 +213,15 @@ class SimpleLexer:
                 self.advance()
                 continue
             
-            # Identifiers and keywords
-            if self.current_char().isalpha() or self.current_char() == '_':
+            # Identifiers and keywords (including Unicode)
+            if self.current_char().isalpha() or self.current_char() == '_' or ord(self.current_char()) > 127:
                 identifier = self.read_identifier()
                 token_type = self.keywords.get(identifier, TokenType.IDENTIFIER)
                 tokens.append(Token(token_type, identifier, self.line))
                 continue
             
             # Skip unknown characters
+            print(f"Warning: Unknown character '{self.current_char()}' at line {self.line}")
             self.advance()
         
         tokens.append(Token(TokenType.EOF, '', self.line))

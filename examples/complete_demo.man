@@ -1,0 +1,89 @@
+# =============================================================================
+# Complete Mantra Feature Demo
+# =============================================================================
+
+prakash("🕉️ Complete Mantra Demo - Showcasing All Features")
+prakash("=" * 50)
+
+# 1. Arrays with Sanskrit methods
+prakash("\n📚 1. Enhanced Arrays:")
+sthana numbers = [1, 2, 3, 4, 5]
+prakash("Array:", numbers)
+prakash("First (pratham):", numbers.pratham())
+prakash("Last (antim):", numbers.antim())
+prakash("Middle (madhya):", numbers.madhya())
+prakash("Length (lambh):", numbers.lambh())
+
+# 2. Circular Data Structure (Mandal)
+prakash("\n🔄 2. Mandal (Circular Data):")
+mandal colors = ["red", "green", "blue", "yellow"]
+prakash("Mandal created:", colors)
+prakash("Next:", colors.next())
+prakash("Next:", colors.next())
+prakash("Next:", colors.next())
+prakash("Next:", colors.next())
+prakash("Next:", colors.next())  # Wraps around
+
+# 3. Function Composition (Sutra)
+prakash("\n🔗 3. Sutra (Function Composition):")
+kriya double(x) {
+    gati x * 2
+}
+
+kriya add_ten(x) {
+    gati x + 10
+}
+
+kriya square(x) {
+    gati x * x
+}
+
+sutra math_chain = [double, add_ten, square]
+prakash("Composed function on 5:", math_chain(5))  # ((5*2)+10)^2 = 400
+
+# 4. Service Definition (Seva)
+prakash("\n🛠️ 4. Seva (Service):")
+seva calculator(operation, a, b) {
+    yadi operation == "add" {
+        gati a + b
+    } athava yadi operation == "multiply" {
+        gati a * b
+    } athava {
+        gati 0
+    }
+}
+
+prakash("Service call - add:", calculator("add", 10, 20))
+prakash("Service call - multiply:", calculator("multiply", 5, 6))
+
+# 5. Conditionals and Loops
+prakash("\n🔢 5. Control Flow:")
+sthana count = 1
+punar count <= 3 {
+    prakash("Iteration", count, "- Namaste!")
+    count = count + 1
+}
+
+# 6. Sanskrit Variables
+prakash("\n🏛️ 6. Sanskrit Programming:")
+sthana नाम = "अर्जुन"  # naam = name
+sthana आयु = 25       # aayu = age
+
+kriya नमस्कार(व्यक्ति) {
+    prakash("🙏 नमस्ते", व्यक्ति + "!")
+}
+
+नमस्कार(नाम)
+
+# 7. Boolean and Null values
+prakash("\n⚡ 7. Special Values:")
+sthana is_ready = saty     # true
+sthana is_done = asaty     # false
+sthana nothing = shunya    # null
+
+prakash("Ready?", is_ready)
+prakash("Done?", is_done)
+prakash("Nothing:", nothing)
+
+prakash("\n✅ Complete Demo Finished!")
+prakash("🎉 Mantra Language - Where Ancient Wisdom Meets Modern Code!")

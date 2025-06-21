@@ -1,30 +1,34 @@
+prakash("🎨 Yantra GUI Demo Starting...")
+
+# Create a simple calculator app
+yantra app {
+    title: "Mantra Calculator",
+    width: 300,
+    height: 400,
+    resizable: saty
+}
+
+yantra frame {
+    background: "lightgray",
+    padding: 10
+}
+
 yantra label {
-    text: "Welcome to Mantra GUI!",
-    font: "Arial 16 bold"
+    text: "🕉️ Sanskrit Calculator",
+    font: "Arial 16 bold",
+    color: "darkblue"
 }
 
 yantra entry {
-    placeholder: "Enter your name",
-    width: 200
+    width: 200,
+    placeholder: "Enter numbers..."
 }
 
 yantra button {
-    text: "Say Hello",
-    width: 100,
-    height: 30
+    text: "Calculate (गणना)",
+    width: 150,
+    background: "orange",
+    action: calculate_action
 }
 
-yantra button {
-    text: "Clear",
-    width: 100,
-    height: 30
-}
-
-# Create the application window using shakti
-shakti "gui_app" {
-    title: "Mantra GUI Demo",
-    width: 400,
-    height: 300
-}
-
-prakash("GUI application created! Check the window.")
+prakash("GUI created! Check your screen 🖥️")

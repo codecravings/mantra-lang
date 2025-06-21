@@ -24,6 +24,8 @@ class MantraRunner:
             return None
         except Exception as e:
             print(f"Error: {e}")
+            import traceback
+            traceback.print_exc()
             return None
     
     def run_code(self, code):
@@ -53,12 +55,21 @@ class MantraRunner:
                     break
                 
                 if code.strip():
+                    # Check if it's just an expression (not a statement)
+                    is_expression = not any(code.strip().startswith(kw) for kw in 
+                                          ['sthana', 'kriya', 'yadi', 'punar', 'gati'])
+                    
                     result = self.run_code(code)
-                    if result is not None:
-                        print(result)
+                    
+                    # Show result for expressions
+                    if result is not None and is_expression:
+                        print(f"=> {result}")
                         
             except KeyboardInterrupt:
                 print("\nGoodbye!")
                 break
             except EOFError:
                 break
+
+# Make key components available at package level
+__all__ = ['MantraRunner', 'Lexer', 'Parser', 'Interpreter', '__version__']
